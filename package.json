@@ -1,0 +1,17 @@
+{
+  "name": "saucedemo",
+  "version": "1.0.0",
+  "description": "a few demo tests using cypress",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "author": "Jian Gao",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^7.1.0",
+    "cypress-promise": "^1.1.0",
+    "faker": "^5.5.3",
+    "prettier": "^2.2.1"
+  }
+}

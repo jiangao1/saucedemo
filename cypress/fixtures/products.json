@@ -1,0 +1,12 @@
+[
+  {
+    "inventory_item_name": "Sauce Labs Backpack",
+    "inventory_item_desc": "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.",
+    "inventory_item_price": "$29.99"
+  },
+  {
+    "inventory_item_name": "Sauce Labs Bike Light",
+    "inventory_item_desc": "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.",
+    "inventory_item_price": "$9.99"
+  }
+]
