@@ -6,12 +6,13 @@ describe('Product', () => {
   beforeEach(() => {
     cy.visit('/')
     cy.login(Cypress.env('STANDARD_USER'), Cypress.env('PASSWORD'))
-    cy.fixture('products.json').as('productsJSON')
+    cy.fixture('products.json').then(function (data) {
+      this.productsJSON = data
+    })
   })
 
   describe('Collapsable menu opens and its selections are present', () => {
     it('collapsable menu opens and its selections are present', () => {
-
       cy.get('#react-burger-menu-btn').click()
       cy.get('#inventory_sidebar_link').should('be.visible')
       cy.get('#about_sidebar_link').should('be.visible')
@@ -20,10 +21,10 @@ describe('Product', () => {
     })
   })
 
-  describe('Sorting options for products page', () => {
-    it('can sort by Name (A-Z)', async () => {
-      const productsJSON = await cy.get('@productsJSON') 
-      let itemNames = await getItemNames(productsJSON)
+  describe('Sorting options for products page', function() {
+    it('can sort by Name (A-Z)', function() {
+      const productsJSON = this.productsJSON
+      let itemNames = getItemNames(productsJSON)
 
       // expected order
       itemNames.sort()
@@ -35,9 +36,9 @@ describe('Product', () => {
       verifyNamesOrder(itemNames)
     })
 
-    it('can sort by Name (Z-A)', async () => {
-      const productsJSON = await cy.get('@productsJSON') 
-      let itemNames = await getItemNames(productsJSON)
+    it('can sort by Name (Z-A)', function() {
+      const productsJSON = this.productsJSON
+      let itemNames = getItemNames(productsJSON)
 
       // expected order
       itemNames.reverse()
@@ -49,9 +50,9 @@ describe('Product', () => {
       verifyNamesOrder(itemNames)
     })
 
-    it('can sort by Price (low to high)', async () => {
-      const productsJSON = await cy.get('@productsJSON') 
-      let itemPrices = await getItemPrices(productsJSON)
+    it('can sort by Price (low to high)', function() {
+      const productsJSON = this.productsJSON
+      let itemPrices = getItemPrices(productsJSON)
       // remove the leading $ sign for price sorting
       itemPrices = itemPrices.map(x => x.replace(/\$/g, ''))
 
@@ -65,9 +66,9 @@ describe('Product', () => {
       verifyPricesOrder(itemPrices)
     })
 
-    it('can sort by Price (high to low)', async () => {
-      const productsJSON = await cy.get('@productsJSON') 
-      let itemPrices = await getItemPrices(productsJSON)
+    it('can sort by Price (high to low)', function() {
+      const productsJSON = this.productsJSON
+      let itemPrices = getItemPrices(productsJSON)
       // remove the leading $ sign for price sorting
       itemPrices = itemPrices.map(x => x.replace(/\$/g, ''))
 
@@ -90,7 +91,7 @@ describe('Product', () => {
     }
   }
 
-  async function getItemNames(productsJSON) {
+  function getItemNames(productsJSON) {
     let itemNames = []
     for (let el of productsJSON) {
       itemNames.push(el.inventory_item_name)
@@ -99,7 +100,7 @@ describe('Product', () => {
     return itemNames
   }
 
-  async function getItemPrices(productsJSON) {
+  function getItemPrices(productsJSON) {
     let itemPrices = []
     for (let el of productsJSON) {
       itemPrices.push(el.inventory_item_price)

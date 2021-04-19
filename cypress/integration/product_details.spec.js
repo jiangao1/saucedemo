@@ -1,20 +1,23 @@
+import promisify from 'cypress-promise'
 import ProductPage from '../page_objects/ProductPage'
 import SingleProductPage from '../page_objects/SingleProductPage'
 
-describe('Product details', () => {
+describe('Product details', function() {
 
   const productPage = new ProductPage()
-  const actualProduct = productPage.getBackpackDetails
+  const actualProduct = productPage.getBackpackDetails()
   const singleProductPage = new SingleProductPage()
 
-  beforeEach(() => {
+  beforeEach(function() {
     cy.visit('/')
     cy.login(Cypress.env('STANDARD_USER'), Cypress.env('PASSWORD'))
-    cy.fixture('products.json').as('productsJSON')
+    cy.fixture('products.json').then(function (data) {
+      this.productsJSON = data
+    })
   })
   
-  it('all detail of a product can display in the product page', async () => {
-    const productsJSON = await cy.get('@productsJSON')
+  it('all detail of a product can display in the product page', function () {
+    const productsJSON = this.productsJSON
 
     // assert item name
     cy.get(actualProduct.name)
@@ -33,8 +36,8 @@ describe('Product details', () => {
       .should('be.visible')
   })
 
-  it('all detail of a product can display in an individual product page', async () => {
-    const productsJSON = await cy.get('@productsJSON')
+  it('all detail of a product can display in an individual product page', function () {
+    const productsJSON = this.productsJSON
     cy.get(actualProduct.name).click()
 
     // assert item name

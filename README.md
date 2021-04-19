@@ -23,6 +23,10 @@ Run command from root of the folder and select either all tests or an individual
 
 > npm run cypress open
 
+**Run in headless mode:**
+> npx cypress run
+
+
 **Some design considerations:**
 - When locating dom elements, used 'data-test' attribute when possible for future front-end change proof.
 - Each tests are independent of each other for stability, and tests are parallellation ready.

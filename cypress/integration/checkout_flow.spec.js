@@ -13,15 +13,17 @@ describe('Order completion and cancellation', () => {
   const overviewPage = new OverviewPage()
   const completePage = new CompletePage()
 
-  beforeEach(() => {
+  beforeEach(function() {
     cy.visit('/')
     cy.login(Cypress.env('STANDARD_USER'), Cypress.env('PASSWORD'))
-    cy.fixture('products.json').as('productsJSON')
+    cy.fixture('products.json').then(function (data) {
+      this.productsJSON = data
+    })
   })
   
-  describe('Check out flow from start to finish', () => {
-    it('Can add two items, checkout, verify price and complete order', async () => {
-      const productsJSON = await cy.get('@productsJSON')
+  describe('Check out flow from start to finish', function() {
+    it('Can add two items, checkout, verify price and complete order', async function() {
+      const productsJSON = this.productsJSON
 
       // add two products to shopping cart
       addTwoProductsToCart()
@@ -33,15 +35,15 @@ describe('Order completion and cancellation', () => {
       fillUserInfo()
 
       // checkout: overview
-      verifyPriceTotal(productsJSON)
+      await verifyPriceTotal(productsJSON)
 
       // checkout: complete
-      verifyComplete()
+      verifyComplete(completePage)
     })
   })
 
-  describe('Cancel order', () => {
-    it('should be able to cancel order from the product page ', async ()=> {
+  describe('Cancel order', function() {
+    it('should be able to cancel order from the product page ', function() {
       // add two products to shopping cart
       addTwoProductsToCart()
 
@@ -50,7 +52,7 @@ describe('Order completion and cancellation', () => {
       cy.get(productPage.cartBadge).should('not.exist')
     })
 
-    it('should be able to cancel order from the shopping cart page', async () => {
+    it('should be able to cancel order from the shopping cart page', function() {
       // add two products to shopping cart
       addTwoProductsToCart()
 
