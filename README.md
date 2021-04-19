@@ -11,6 +11,7 @@ Clone this repo
 **Install packages:**
 Type below commands from the root of the folder
 > npm install
+
 > npx cypress install
 
 **Run in cypress GUI:** 
