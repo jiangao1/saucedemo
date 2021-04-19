@@ -15,7 +15,7 @@ describe('Order completion and cancellation', () => {
 
   beforeEach(() => {
     cy.visit('/')
-    cy.loginAsStandard()
+    cy.login(Cypress.env('STANDARD_USER'), Cypress.env('PASSWORD'))
     cy.fixture('products.json').as('productsJSON')
   })
   

@@ -32,9 +32,3 @@ Cypress.Commands.add('login', (username, password) => {
   signIn.fillPassword(password)
   signIn.submit()
 })
-
-Cypress.Commands.add('loginAsStandard', () => {
-  signIn.fillUsername('standard_user')
-  signIn.fillPassword('secret_sauce')
-  signIn.submit()
-})
