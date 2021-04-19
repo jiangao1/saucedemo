@@ -9,8 +9,9 @@ Clone this repo
 > git clone https://github.com/linuxkidvoid/saucedemo.git
 
 **Install packages:**
-Type below command from the root of the folder
+Type below commands from the root of the folder
 > npm install
+> npx cypress install
 
 **Run in cypress GUI:** 
 Run command from root of the folder and select either all tests or an individual test to run. Note the npx is pre-bundled with npm, so it should be included with npm, should work right out of the box.
@@ -20,10 +21,6 @@ Run command from root of the folder and select either all tests or an individual
   or
 
 > npm run cypress open
-
-**Run in headless mode:**
-> npx cypress run
-
 
 **Some design considerations:**
 - When locating dom elements, used 'data-test' attribute when possible for future front-end change proof.
